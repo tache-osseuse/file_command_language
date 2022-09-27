@@ -95,8 +95,8 @@ def commander(ch):
             else:
                 print('[Такого файла нет!]')
         case 'sh1':
-            os.system('dir ' + pt)
-            print('Вывод содержимого каталога!')
+            st = os.popen('dir /b /a-d ' + pt).read().split()
+            print(st)
         case 'sw1':
             print('Переключение текущего каталога')
         case 'at1':
