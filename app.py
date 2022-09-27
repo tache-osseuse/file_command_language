@@ -32,28 +32,34 @@ def commander(ch):
                 print('[Такого файла нет!]')
         case 'st1':
             if os.path.isfile(pt + ch[1]):
-                os.system('attrib +r ' + pt + ch[1])
-                print('Режим только чтения!')
+                if 'R' not in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
+                    os.system('attrib +r ' + pt + ch[1])
+                    print('Был установлен режим только чтения!')
+                else:
+                    print('[Режим только для чтения уже установлен!]')
             else:
-                print('Такого файла нет!')
+                print('[Такого файла нет!]')
         case 'st2':
             if os.path.isfile(pt + ch[1]):
-                os.system('attrib -r ' + pt + ch[1])
-                print('Режим чтения и записи!')
+                if 'R' in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
+                    os.system('attrib -r ' + pt + ch[1])
+                    print('Был установлен режим чтения и записи!')
+                else:
+                    print('[Режим только для чтения и записи уже установлен!]')
             else:
-                print('Такого файла нет!')
+                print('[Такого файла нет!]')
         case 'ar1':
             if os.path.isfile(pt + ch[1]):
                 os.system('attrib +a ' + pt + ch[1])
                 print('Готов к архивации!')
             else:
-                print('Такого файла нет!')
+                print('[Такого файла нет!]')
         case 'ar2':
             if os.path.isfile(pt + ch[1]):
                 os.system('attrib -a ' + pt + ch[1])
                 print('Не готов к архивации!')
             else:
-                print('Такого файла нет!')
+                print('[Такого файла нет!]')
         case 'sh1':
             os.system('dir ' + pt)
             print('Вывод содержимого каталога!')
@@ -61,8 +67,23 @@ def commander(ch):
             print('Переключение текущего каталога')
         case 'at1':
             if os.path.isfile(pt + ch[1]):
-                os.system('attrib ' + pt + ch[1])
-                print('Вывод всех атрибутов файла!')
+                lst = os.popen('attrib ' + pt + ch[1]).read().split()
+                if len(lst) == 1:
+                    print('|Файл не готов к архивации, доступен в режиме чтения и записи, файл открыт|')
+                elif len(lst) == 2 and lst[0] == 'A':
+                    print('|Файл готов к архивации, доступен в режиме чтения и записи, файл открыт|')
+                elif len(lst) == 2 and lst[0] == 'R':
+                    print('|Файл не готов к архивации, доступен только в режиме чтения, файл открыт|')
+                elif len(lst) == 2 and lst[0] == 'H':
+                    print('|Файл не готов к архивации, доступен в режиме чтения и записи, файл скрыт|')
+                elif len(lst) == 2 and lst[0] == 'HR':
+                    print('|Файл не готов к архивации, доступен только в режиме чтения, файл скрыт|')
+                elif len(lst) == 3 and lst[1] == 'R':
+                    print('|Файл готов к архивации, доступен только в режиме чтения, файл открыт|')
+                elif len(lst) == 3 and lst[1] == 'H':
+                    print('|Файл готов к архивации, доступен в режиме чтения и записи, файл скрыт|')
+                elif len(lst) == 3 and lst[1] == 'HR':
+                    print('|Файл готов к архивации, доступен только в режиме чтения, файл скрыт|')
             else:
                 print('Такого файла нет!')            
 
