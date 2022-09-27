@@ -32,32 +32,66 @@ def commander(ch):
                 print('[Такого файла нет!]')
         case 'st1':
             if os.path.isfile(pt + ch[1]):
-                if 'R' not in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
-                    os.system('attrib +r ' + pt + ch[1])
-                    print('Был установлен режим только чтения!')
+                st = os.popen('attrib ' + pt + ch[1]).read().split()
+                if len(st) == 3 and 'H' not in st[1]:
+                    if 'R' not in st[1]:
+                        os.system('attrib +r ' + pt + ch[1])
+                        print('Был установлен режим только чтения!')
+                    else:
+                        print('[Режим только для чтения уже установлен!]')
+                elif len(st) == 2 and 'H' not in st[0]:
+                    if 'R' not in st[1]:
+                        os.system('attrib +r ' + pt + ch[1])
+                        print('Был установлен режим только чтения!')
+                    else:
+                        print('[Режим только для чтения уже установлен!]')
                 else:
-                    print('[Режим только для чтения уже установлен!]')
+                    print('|Файл скрыт!|')
             else:
                 print('[Такого файла нет!]')
         case 'st2':
             if os.path.isfile(pt + ch[1]):
-                if 'R' in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
-                    os.system('attrib -r ' + pt + ch[1])
-                    print('Был установлен режим чтения и записи!')
+                st = os.popen('attrib ' + pt + ch[1]).read().split()
+                if len(st) == 3 and 'H' not in st[1]:
+                    if 'R' in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
+                        os.system('attrib -r ' + pt + ch[1])
+                        print('Был установлен режим чтения и записи!')
+                    else:
+                        print('[Режим только для чтения и записи уже установлен!]')
+                elif len(st) == 2 and 'H' not in st[0]:
+                    if 'R' in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
+                        os.system('attrib -r ' + pt + ch[1])
+                        print('Был установлен режим чтения и записи!')
+                    else:
+                        print('[Режим только для чтения и записи уже установлен!]')
                 else:
-                    print('[Режим только для чтения и записи уже установлен!]')
+                    print('[Файл скрыт!]')
             else:
                 print('[Такого файла нет!]')
         case 'ar1':
             if os.path.isfile(pt + ch[1]):
-                os.system('attrib +a ' + pt + ch[1])
-                print('Готов к архивации!')
+                st = os.popen('attrib ' + pt + ch[1]).read().split()
+                if len(st) != 3:
+                    if 'H' not in os.popen('attrib ' + pt + ch[1]).read().split()[0]:
+                        os.system('attrib +a ' + pt + ch[1])
+                        print('Готов к архивации!')
+                    else:
+                        print('[Файл скрыт!]')
+                else:
+                    print('[Файл уже готов к архивации!]')
             else:
                 print('[Такого файла нет!]')
         case 'ar2':
             if os.path.isfile(pt + ch[1]):
-                os.system('attrib -a ' + pt + ch[1])
-                print('Не готов к архивации!')
+                st = os.popen('attrib ' + pt + ch[1]).read().split()
+                if len(st) != 2:
+                    if 'H' not in os.popen('attrib ' + pt + ch[1]).read().split()[1]:
+                        os.system('attrib -a ' + pt + ch[1])
+                        print('Не готов к архивации!')
+                    else:
+                        print('[Файл скрыт!]')
+                else:
+                    print('[Файл уже не готов к архивации!]')
             else:
                 print('[Такого файла нет!]')
         case 'sh1':
