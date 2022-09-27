@@ -11,6 +11,7 @@ command = {"hide":['arg', {'-on':'h1','-off':'h2'}],
 pt = os.path.dirname(os.path.abspath(__file__)) + '\\test_dir\\'
 
 def commander(ch):
+    global pt
     match ch[0]:
         case 'h1':
             if os.path.isfile(pt + ch[1]):
@@ -96,9 +97,14 @@ def commander(ch):
                 print('[Такого файла нет!]')
         case 'sh1':
             st = os.popen('dir /b /a-d ' + pt).read().split()
-            print(st)
+            for el in st:
+                print(el, end=' ')
+            print()
         case 'sw1':
-            print('Переключение текущего каталога')
+            if os.path.exists(ch[1]):
+                pt = ch[1]
+            else:
+                print('[Такой директории нет!]')
         case 'at1':
             if os.path.isfile(pt + ch[1]):
                 lst = os.popen('attrib ' + pt + ch[1]).read().split()
