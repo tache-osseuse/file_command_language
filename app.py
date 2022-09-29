@@ -19,7 +19,7 @@ def commander(ch):
                 if len(st) == 3 and 'H' not in st[1]:
                     os.system('attrib +h ' + pt + ch[1])
                     print('Файл был скрыт!')
-                elif len(st) == 2 and 'H' not in st[1]:
+                elif len(st) == 2 and 'H' not in st[0]:
                     os.system('attrib +h ' + pt + ch[1])
                     print('Файл был скрыт!')
                 else:
@@ -32,7 +32,7 @@ def commander(ch):
                 if len(st) == 3 and 'H' in st[1]:
                     os.system('attrib -h ' + pt + ch[1])
                     print('Файл был открыт!')
-                elif len(st) == 2 and 'H' in st[1]:
+                elif len(st) == 2 and 'H' in st[0]:
                     os.system('attrib -h ' + pt + ch[1])
                     print('Файл был открыт!')
                 else:
@@ -80,7 +80,6 @@ def commander(ch):
         case 'ar1':
             if os.path.isfile(pt + ch[1]):
                 st = os.popen('attrib ' + pt + ch[1]).read().split()
-                print(st)
                 if len(st) == 3:
                     if 'H' not in st[1]:
                         os.system('attrib +a ' + pt + ch[1])
