@@ -5,7 +5,8 @@ command = {"hide":['arg', {'-on':'h1','-off':'h2'}],
            "archive":['arg', {'-on':'ar1','-off':'ar2'}],
            "show":['emp', 'sh1'],
            "switch":['nm', 'sw1'],
-           "attr":['nm', 'at1']
+           "attr":['nm', 'at1'],
+           "help":['emp', 'hlp1']
            }
 
 pt = os.path.dirname(os.path.abspath(__file__)) + '\\test_dir\\'
@@ -138,7 +139,15 @@ def maker(ch, st):
                 elif len(lst) == 3 and lst[1] == 'HR':
                     print('|Файл готов к архивации, доступен только в режиме чтения, файл скрыт|')
             else:
-                print('Такого файла нет!')            
+                print('Такого файла нет!')
+        case 'hlp1':
+            print('show – вывод содержимого каталога (всех файлов)')
+            print('switch <абсолютный путь до каталога> – смена текущего каталога на указанный')
+            print('attr <название файла | группа файлов> – вывод всех атрибутов файла/группы файлов')
+            print('hide -on | -off <название файла | группа файлов > – включить/выключить скрытие файла/группы файлов')
+            print('state -r | -w <название файла | группа файлов > – включить/выключить режим «только чтение» для файла/группы файлов')
+            print('archive -on | -off <название файла | группа файлов > – сделать файл/группу файлов готовым/не готовым к архивации')
+            print('help – вывод справки по доступным командам')          
 
 
 def commander(ch):
@@ -174,14 +183,14 @@ while True:
             if command[ls[0]][0] == 'nm':
                 commander([command[ls[0]][1], [ls[1]]])
             else:
-                print("NO!")
+                print("[Ошибка!]")
         elif len(ls) == 1:
             if command[ls[0]][0] == 'emp':
                 commander([command[ls[0]][1]])
             else:
-                print("NO!")
+                print("[Ошибка]!")
         else:
-            print("NO!")
+            print("[Ошибка]!")
     else:
-        print('Такой команды нет!')
+        print('[Такой команды нет!]')
 
