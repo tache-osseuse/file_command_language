@@ -113,8 +113,8 @@ def maker(ch, st):
                 print(el, end=' ')
             print()
         case 'sw1':
-            if os.path.exists(ch[1]):
-                pt = ch[1]
+            if os.path.exists(st):
+                pt = st
             else:
                 print('[Такой директории нет!]')
         case 'at1':
@@ -152,7 +152,7 @@ def commander(ch):
                 else:
                     print('[Такого файла нет!]')
         else:
-            maker(ch, ch[1])
+            maker(ch, ch[1][0])
     else:
         maker(ch, [])
     
